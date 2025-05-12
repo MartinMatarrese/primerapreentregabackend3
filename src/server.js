@@ -12,6 +12,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import usersRoutes from "./routes/users.routes.js";
 import { errorHandler } from "./middlewares/errorhandler.js";
+import mockRouter from "./routes/mocks.routes.js";
 
 
 
@@ -58,6 +59,8 @@ app.use("/users", usersRoutes);
 app.use("/api/products", productRouter);
 
 app.use("/api/carts", cartRouter);
+
+app.use("/api/mocks", mockRouter);
 
 app.use("/api/chat", chatRouter)
 

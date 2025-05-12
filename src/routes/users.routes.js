@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { userContoller } from "../controllers/user.controller.js";
+import { userController } from "../controllers/user.controller.js";
 import { roleAuth } from "../middlewares/roleAuth.js";
 import { userValidator } from "../middlewares/user.validator.js";
 import { jwtAuth } from "../middlewares/jwtAuth.js";
 
 const userRouter = Router()
 
-userRouter.post("/register", userValidator, userContoller.register);
+userRouter.post("/register", userValidator, userController.register);
 
-userRouter.post("/login", userContoller.login);
+userRouter.post("/login", userController.login);
 
-userRouter.get("/current", [ jwtAuth, roleAuth("user", "admin")], userContoller.privateData);
+userRouter.get("/current", [ jwtAuth, roleAuth("user", "admin")], userController.privateData);
 
 export default userRouter;

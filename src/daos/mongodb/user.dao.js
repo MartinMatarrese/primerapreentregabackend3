@@ -29,6 +29,22 @@ class userDaoMongo extends MongoDao {
             throw new Error(error);
         }
     };
+
+    async insertMany(users) {
+        try {
+            return await userModel.insertMany(users);
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
+
+    async findAll() {
+        try {
+            return await userModel.find();
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
 }
 
 export const userDao = new userDaoMongo();

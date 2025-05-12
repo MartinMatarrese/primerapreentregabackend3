@@ -4,6 +4,7 @@ import "dotenv/config";
 import Services from "./service.manager.js";
 import { cartServices } from "./cart.service.js";
 import { userRepository } from "../repository/user.repositrory.js";
+import { generateUsers } from "../utils/mockGenerator.js";
 
 class UserService extends Services {
     constructor() {
@@ -77,6 +78,23 @@ class UserService extends Services {
         } catch (error) {
             throw new Error(error);
         }
+    };
+
+    createUsersMock = async(cant = 50 ) =>{
+        try {
+            const users = Array.from({ length: cant }, () => generateUsers());
+            return await userRepository.insertManyUsers(users);
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
+
+    getUsers = async() => {
+        try {
+            return await userRepository.getAllUsers();
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 };
 

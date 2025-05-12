@@ -6,6 +6,7 @@ export default class UserReqDto {
         this.age = user.age;
         this.role = user.role || "user";
         this.cart = user.cart;
-        this.password = user.password
+        this.password = user.password;
+        this.pets = user.pets;
     };
 };

@@ -1,3 +1,4 @@
+import { Result } from "express-validator";
 import persistence from "../daos/persistence.js";
 import UserReqDto from "../dtos/user.req.dto.js";
 import UserResDto from "../dtos/user.res.dto.js";
@@ -42,6 +43,24 @@ class UserRepository {
             return response
         } catch (error) {
             throw new Error(`Error al actualizar el carrito del usuario: ${error.message}`);
+        };
+    };
+
+    insertManyUsers = async(users) => {
+        try {
+            const reult = await this.dao.insertMany(users);
+            return Result
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
+
+    getAllUsers = async() => {
+        try {
+            const response = await this.dao.getAll();
+            return response
+        } catch(error) {
+            throw new Error(error);
         };
     };
 };

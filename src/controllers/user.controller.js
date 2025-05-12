@@ -1,5 +1,7 @@
 import Controllers from "./controller.manager.js";
 import { userService } from "../services/user.service.js";
+import { petService } from "../services/pet.service.js";
+
 
 class UserController extends Controllers {
     constructor() {
@@ -11,7 +13,6 @@ class UserController extends Controllers {
             const user = await this.service.register(req.body);
             return res.status(201).json(user);
         } catch(error) {
-            // next(error)
             res.status(500).json({error: "Error interno en el servidor"})
         }
     };
@@ -41,6 +42,27 @@ class UserController extends Controllers {
             next(error)
         }
     };
+
+    createUsers = async(req, res, next) => {
+        try {
+            const { cant } = req.body;
+            const response = await userService.createUsersMock(Number(cant || 50));
+            res.json(response);
+        } catch (error) {
+            next(error);
+        };
+    };
+
+    generateData = async(req, res, next) => {
+        try {
+            const { users = 0, pets = 0} = req.body;
+            const userCreated = await userService.createUsersMock(Number(users));
+            const petsCreated = await petService.createPetsMock(Number(pets));
+            res.json({ message: "Datos generados", userCreated, petsCreated});
+        } catch(error) {
+            next(error);
+        }
+    }
 }
 
-export const userContoller = new UserController();
+export const userController = new UserController();
